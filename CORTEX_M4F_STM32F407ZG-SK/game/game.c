@@ -319,6 +319,7 @@ GAME_Render()
 	LCD_SetTextColor( LCD_COLOR_YELLOW );
 	LCD_DrawFullRect( ballX, ballY, ballSize, ballSize );
 	//LCD_DrawCircle(ballX, ballY, ballSize * 2);
+
 	LCD_DrawLine( 10, LCD_PIXEL_HEIGHT / 2, LCD_PIXEL_WIDTH - 20, LCD_DIR_HORIZONTAL );
 	if(p1_count > 9 || p2_count > 9)
 	{
