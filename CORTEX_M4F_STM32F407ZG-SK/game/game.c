@@ -118,7 +118,8 @@ GAME_Update()
 		if( ballIsRun == 1 ){
 
 			LCD_SetTextColor( LCD_COLOR_BLACK );
-			LCD_DrawFullRect( ballX, ballY, ballSize, ballSize );
+			//LCD_DrawFullRect( ballX, ballY, ballSize, ballSize );
+			LCD_DrawCircle(ballX, ballY, ballSize );
 
 			//Touch wall
 			ballX += ballVX;
@@ -158,6 +159,12 @@ GAME_Update()
 				}
 				else{
 					p1_count++;
+					//LCD_DisplayChar(LCD_PIXEL_HEIGHT/2 - 70, 10, 0x52);
+					//LCD_DisplayChar(LCD_PIXEL_HEIGHT/2 - 70, 25, 0x45);
+					//LCD_DisplayChar(LCD_PIXEL_HEIGHT/2 - 70, 40, 0x41);
+					//LCD_DisplayChar(LCD_PIXEL_HEIGHT/2 - 70, 55, 0x44);
+					//LCD_DisplayChar(LCD_PIXEL_HEIGHT/2 - 70, 70, 0x59);
+					//LCD_Clear( LCD_COLOR_BLACK );
 					BallReset();
 				}
 			}
@@ -234,7 +241,8 @@ GAME_Update()
 		if( ballIsRun == 1 ){
 
 			LCD_SetTextColor( LCD_COLOR_BLACK );
-			LCD_DrawFullRect( ballX, ballY, ballSize, ballSize );
+			//LCD_DrawFullRect( ballX, ballY, ballSize, ballSize );
+			LCD_DrawCircle(ballX, ballY, ballSize );
 
 			//Touch wall
 			ballX += ballVX;
@@ -317,12 +325,35 @@ GAME_Render()
 	LCD_DrawFullRect( player1X, player1Y, player1W, player1H );
 	LCD_DrawFullRect( player2X, player2Y, player2W, player2H );
 	LCD_SetTextColor( LCD_COLOR_YELLOW );
-	LCD_DrawFullRect( ballX, ballY, ballSize, ballSize );
-	//LCD_DrawCircle(ballX, ballY, ballSize * 2);
-
+	//LCD_DrawFullRect( ballX, ballY, ballSize, ballSize );
+	LCD_DrawCircle(ballX, ballY, ballSize );
 	LCD_DrawLine( 10, LCD_PIXEL_HEIGHT / 2, LCD_PIXEL_WIDTH - 20, LCD_DIR_HORIZONTAL );
-	if(p1_count > 9 || p2_count > 9)
+	if(p1_count > 9)
 	{
+		LCD_SetTextColor( LCD_COLOR_BLUE );
+
+                LCD_DisplayStringLine( LCD_PIXEL_HEIGHT / 2 - 55, "YOU WIN!");
+                vTaskDelay(1000);
+                LCD_Clear( LCD_COLOR_BLACK );
+
+		LCD_DisplayStringLine(LCD_PIXEL_HEIGHT / 2, " ARE YOU READY?");
+		vTaskDelay(500);
+                LCD_Clear( LCD_COLOR_BLACK );
+		
+		p1_count = p2_count = 0;
+	}
+	else if(p2_count > 9)
+	{
+		LCD_SetTextColor( LCD_COLOR_BLUE );
+		
+		LCD_DisplayStringLine(LCD_PIXEL_HEIGHT / 2 + 30, "YOU WIN!");
+		vTaskDelay(1000);
+		LCD_Clear( LCD_COLOR_BLACK );
+		
+		LCD_DisplayStringLine(LCD_PIXEL_HEIGHT / 2, " ARE YOU READY?");
+                vTaskDelay(500);
+		LCD_Clear( LCD_COLOR_BLACK );
+		
 		p1_count = p2_count = 0;
 	}
 	LCD_SetTextColor( LCD_COLOR_RED );
